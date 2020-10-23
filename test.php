@@ -9,6 +9,70 @@ $ioc_con_app = new Application();
 
 $test = new DeclareRecordService($ioc_con_app);
 
+$declareConfig = [
+    'message_id'           => 'SAS121_20190706104235248',
+    'file_name'           => 'SAS121_20190706104235248',
+    'sender_id'           => '123',
+    'receiver_id'           => '123',
+    'OperCusRegCode'           => '操作卡海关十位代码',
+    'DelcareFlag'           => '申报标志(0-暂存、1-申报)',
+];
+
+$declareParams = [
+    'appHeadType'=> [
+        'SeqNo'=> '预录入统一编号',
+        'SasDclNo'=> '申报表编号',
+        'MaserCuscd'=> '主管关区代码',
+        'DclTypecd'=> '申报类型代码',
+        'BusinessTypecd'=> '业务类型代码',
+        'DirectionTypecd'=> '货物流向代码',
+        'AreainOriactNo'=> '区内账册编号',
+        'AreaoutOriactNo'=> '区外账册编号',
+        'AreainEtpsno'=> '区内企业编码',
+        'AreainEtpsNm'=> '区内企业名称',
+        'AreainEtpsSccd'=> '区内企业社会信用代码',
+        'AreaoutEtpsno'=> '区外企业编码',
+        'AreaoutEtpsNm'=> '区外企业名称',
+        'AreaoutEtpsSccd'=> '区外企业社会信用代码',
+        'ValidTime'=> '有效期',
+        'DclEr'=> '申请人',
+        'DclEtpsno'=> '申报企业编号',
+        'DclEtpsNm'=> '申报企业名称',
+        'DclEtpsSccd'=> '申报企业社会信用代码',
+        'InputCode'=> '录入单位代码',
+        'InputSccd'=> '录入单位社会信用代码',
+        'InputName'=> '录入单位名称',
+        'EtpsPreentNo'=> '企业内部编号',
+        'MtpckEndprdTypecd'=> '底账料件成品标志',
+        'FreeDomestic'=> '保税区内销标志，“Y”：是，默认为空',
+    ],
+    'appGoodsType'=> [
+        'SeqNo' => '预录入编号',
+        'SasDclNo' => '申报表编号',
+        'SasDclSeqno' => '申报序号',
+        'OriactGdsSeqno' => '底账商品序号',
+        'MtpckEndprdTypecd' => '料件成品标志代码',
+        'Gdecd' => '商品编码',
+        'GdsNm' => '商品名称',
+        'GdsSpcfModelDesc' => '商品规格型号描述',
+        'DclQty' => '数量',
+        'DclUnitcd' => '申报计量单位代码',
+        'DclUprcAmt' => '单价',
+        'DclTotalAmt' => '总价',
+        'DclCurrcd' => '币制代码',
+        'LicenceVaildTime' => '许可证有效期',
+        'GdsMarkcd' => '商品标记代码',
+        'ModfMarkcd' => '修改标志代码',
+        'GdsMtno' => '商品料号',
+        'LawfUnitcd' => '法定计量单位代码',
+        'SecdLawfUnitcd' => '法定第二计量单位代码',
+
+    ],
+];
+
+var_dump($test->getDeclareRecordXml($declareConfig,$declareParams));
+die();
+
 $declareParams = [
 
     'data_enclosure' => [
@@ -121,5 +185,4 @@ $declareParams = [
    
     
 ];
-var_dump($test->getDeclareRecordXml([],$declareParams));
-die();
+
