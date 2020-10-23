@@ -1219,11 +1219,6 @@ class Client extends BaseClient
             'Col4|' => 'max:255',
         ];
 
-        $appMessage   = $data_declaration['appMessage'];
-        $appHeadType  = $data_declaration['appHeadType'];
-        $appGoodsType = $data_declaration['appGoodsType'];
-        $appUcnsType  = $data_declaration['appUcnsType'];
-
         $this->credentialValidate->setRule($appMessage_rules);
 
         if (!$this->credentialValidate->check( $appMessage)) {
