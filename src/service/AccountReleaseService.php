@@ -6,32 +6,32 @@ use gold\GoldPortSecondClient\Application;
 use gold\GoldPortSecondClient\Base\Exceptions\ClientError;
 
 /**
- * 申报单备案.
+ * 核放单.
  */
-class DeclareRecordService
+class AccountReleaseService
 {
     /**
-     * @var DeclareRecord
+     * @var AccountRelease
      */
-    private $_declareRecord;
+    private $_accountRelease;
 
     public function __construct(Application $app)
     {
-        $this->_declareRecord = $app['declare_record'];
+        $this->_accountRelease = $app['account_release'];
     }
 
     /**
-     * 申报单备案.
+     * 核放单报文.
      *
      * @throws ClientError
      * @throws \Exception
      */
-    public function getDeclareRecordXml(array $declareConfig = [], array $declareParams = [])
+    public function getAccountReleaseXml(array $declareConfig = [], array $declareParams = [])
     {
         if (empty($declareConfig) || empty($declareParams)) {
             throw new ClientError('参数缺失', 1000001);
         }
 
-        return $this->_declareRecord->getDeclareRecordXml($declareConfig, $declareParams);
+        return $this->_accountRelease->getAccountReleaseXml($declareConfig, $declareParams);
     }
 }

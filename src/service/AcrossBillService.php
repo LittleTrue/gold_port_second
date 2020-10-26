@@ -6,32 +6,32 @@ use gold\GoldPortSecondClient\Application;
 use gold\GoldPortSecondClient\Base\Exceptions\ClientError;
 
 /**
- * 申报单备案.
+ * 出入库.
  */
-class DeclareRecordService
+class AcrossBillService
 {
     /**
-     * @var DeclareRecord
+     * @var AcrossBill
      */
-    private $_declareRecord;
+    private $_acrossBill;
 
     public function __construct(Application $app)
     {
-        $this->_declareRecord = $app['declare_record'];
+        $this->_acrossBill = $app['across_bill'];
     }
 
     /**
-     * 申报单备案.
+     * 出入库报文.
      *
      * @throws ClientError
      * @throws \Exception
      */
-    public function getDeclareRecordXml(array $declareConfig = [], array $declareParams = [])
+    public function getAcrossBillXml(array $declareConfig = [], array $declareParams = [])
     {
         if (empty($declareConfig) || empty($declareParams)) {
             throw new ClientError('参数缺失', 1000001);
         }
 
-        return $this->_declareRecord->getDeclareRecordXml($declareConfig, $declareParams);
+        return $this->_acrossBill->getAcrossBillXml($declareConfig, $declareParams);
     }
 }

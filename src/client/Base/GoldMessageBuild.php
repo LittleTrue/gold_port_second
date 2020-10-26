@@ -25,14 +25,19 @@ trait GoldMessageBuild
     /**
      * 生成报文根节点,dom操作类.
      */
-    public function setRootNode()
+    public function setRootNode($attribute)
     {
         $this->dom = new \DomDocument('1.0', 'UTF-8');
         $root_node = $this->dom->createElement('Signature');
         $this->dom->appendchild($root_node);
 
-        $root_node->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
-        $root_node->setAttribute('xsi:noNamespaceSchemaLocation', 'file:///C:/Users/chongwei/Desktop/SAS101.xsd');
+        if (!empty($attribute)) {
+            foreach ($attribute as $key => $value) {
+                $root_node->setAttribute($key, $value);
+            }
+        }
+        // $root_node->setAttribute('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
+        // $root_node->setAttribute('xsi:noNamespaceSchemaLocation', 'file:///C:/Users/chongwei/Desktop/SAS101.xsd');
 
         //文档ceb根结点, 根节点和对应的节点用数组存储
         $this->nodeLink['root_node'] = $root_node;
@@ -89,20 +94,37 @@ trait GoldMessageBuild
     }
 
     /**
-     * 生成签名节点
+     * 生成签名节点.
      */
-    public function createSignedInfo($dom, $parents, $data = '')
+    public function createSignedInfo($dom, $parents, $type)
     {
         $SignedInfo = $this->dom->createElement('SignedInfo');
         $parents->appendchild($SignedInfo);
         $this->nodeLink['SignedInfo'] = $SignedInfo;
+
+        $attribute = 'http://www.w3.org/2001/04/xmldsig-more#rsa-md5';
+
+        switch ($type) {
+            case 'SAS101':
+                $attribute = 'http://www.w3.org/2001/04/xmldsig-more#rsa-md5';
+                break;
+            case 'SAS111':
+                $attribute = 'http://www.w3.org/2000/09/xmldsig#rsa-sha1';
+                break;
+            case 'SAS121':
+                $attribute = 'http://www.w3.org/2000/09/xmldsig#rsa-sha1';
+                break;
+            case 'SAS121':
+                $attribute = 'http://www.w3.org/2001/04/xmldsig-more#rsa-md5';
+                break;
+        }
 
         $CanonicalizationMethod = $this->dom->createElement('CanonicalizationMethod');
         $CanonicalizationMethod->setAttribute('Algorithm', 'http://www.w3.org/TR/2001/REC-xml-c14n-20010315');
         $this->nodeLink['SignedInfo']->appendchild($CanonicalizationMethod);
 
         $SignatureMethod = $this->dom->createElement('SignatureMethod');
-        $SignatureMethod->setAttribute('Algorithm', 'http://www.w3.org/2000/09/xmldsig#rsa-sha1');
+        $SignatureMethod->setAttribute('Algorithm', $attribute);
         $this->nodeLink['SignedInfo']->appendchild($SignatureMethod);
 
         $Reference = $this->dom->createElement('Reference');
@@ -116,13 +138,12 @@ trait GoldMessageBuild
 
         $DigestValue = $this->dom->createElement('DigestValue');
         $this->nodeLink['Reference']->appendchild($DigestValue);
-      
 
         $KeyInfo = $this->dom->createElement('KeyInfo');
         $parents->appendchild($KeyInfo);
 
         $KeyName = [
-            'KeyName'           => 'aa',
+            'KeyName' => 'aa',
         ];
 
         $this->dom = $this->createEle($KeyName, $this->dom, $KeyInfo);

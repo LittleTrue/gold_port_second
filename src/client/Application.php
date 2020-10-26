@@ -17,6 +17,9 @@ class Application extends Container
         Base\ServiceProvider::class,
 
         GoldMessage\DeclareRecord\ServiceProvider::class,
+        GoldMessage\AcrossBill\ServiceProvider::class,
+        GoldMessage\AccountRelease\ServiceProvider::class,
+        GoldMessage\NuclearNote\ServiceProvider::class,
     ];
 
     /**

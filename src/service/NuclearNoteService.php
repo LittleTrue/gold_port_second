@@ -6,32 +6,32 @@ use gold\GoldPortSecondClient\Application;
 use gold\GoldPortSecondClient\Base\Exceptions\ClientError;
 
 /**
- * 申报单备案.
+ * 核注清单.
  */
-class DeclareRecordService
+class NuclearNoteService
 {
     /**
-     * @var DeclareRecord
+     * @var NuclearNote
      */
-    private $_declareRecord;
+    private $_nuclearNote;
 
     public function __construct(Application $app)
     {
-        $this->_declareRecord = $app['declare_record'];
+        $this->_nuclearNote = $app['nuclear_note'];
     }
 
     /**
-     * 申报单备案.
+     * 核注清单.
      *
      * @throws ClientError
      * @throws \Exception
      */
-    public function getDeclareRecordXml(array $declareConfig = [], array $declareParams = [])
+    public function getNuclearNoteXml(array $declareConfig = [], array $declareParams = [])
     {
         if (empty($declareConfig) || empty($declareParams)) {
             throw new ClientError('参数缺失', 1000001);
         }
 
-        return $this->_declareRecord->getDeclareRecordXml($declareConfig, $declareParams);
+        return $this->_nuclearNote->getNuclearNoteXml($declareConfig, $declareParams);
     }
 }
