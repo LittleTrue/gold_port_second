@@ -26,7 +26,7 @@ class AccountReleaseService
      * @throws ClientError
      * @throws \Exception
      */
-    public function getAccountReleaseXml(array $declareConfig = [], array $declareParams = [])
+    public function generateXml(array $declareConfig = [], array $declareParams = [])
     {
         if (empty($declareConfig) || empty($declareParams)) {
             throw new ClientError('参数缺失', 1000001);
