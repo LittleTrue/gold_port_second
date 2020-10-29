@@ -363,7 +363,7 @@ class Client extends BaseClient
         $this->credentialValidate->setRule($HeadType_rules);
 
         foreach ($HeadType as $key => $value) {
-            if (!$this->credentialValidate->check($HeadType)) {
+            if (!$this->credentialValidate->check($value)) {
                 throw new ClientError('报文清单数据: ' . $this->credentialValidate->getError());
             }
         }
